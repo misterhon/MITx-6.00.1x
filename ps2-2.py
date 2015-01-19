@@ -18,21 +18,20 @@
 # 	Lowest Payment: 180
 ##########################################################################
 
-def PayOffInAYear( balance, annualInterestRate, payment ):
+rate = 1.0 + ( annualInterestRate / 12.0 );
+
+def PayOffInAYear( balance, rate, payment ):
 
 	m = 0;
-	ir = annualInterestRate / 12.0;
-	ub = balance;
-	bal = ub;
+	bal = balance;
 
 	while ( m < 12 ):
 		m += 1;
-		ub = bal - payment;
-		bal = round( ( ub * ( 1.0 + ir ) ), 2 );
+		bal = round( ( ( bal - payment ) * rate ), 2 );
 
 	if ( bal > 0.0 ) :
-		return PayOffInAYear( balance, annualInterestRate, payment + 10 );
+		return PayOffInAYear( balance, rate, payment + 10 );
 
 	return payment;
 
-print "Lowest Payment: " + `PayOffInAYear( balance, annualInterestRate, 10 )`;
+print "Lowest Payment: " + `PayOffInAYear( balance, rate, 10 )`;

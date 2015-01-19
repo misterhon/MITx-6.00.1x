@@ -41,17 +41,17 @@
 def PayTheMinimum( balance, annualInterestRate, monthlyPaymentRate ):
     
     m = 0;
-    ir = ( annualInterestRate / 12.0 );
+    ir = ( annualInterestRate / 12.0 ) + 1.0;
     to = 0.0;
 
     while ( m < 12 ):
         m += 1;
-        print "Month: " + `m`;
         p = round( monthlyPaymentRate * balance, 2 );
-        print "Minimum monthly payment: " + `p`;
-        ub = balance - p;
+        balance = round( ( ( balance - p ) * ir ), 2 );
         to = round( to + p, 2);
-        balance = round( ( ub * ( 1.0 + ir ) ), 2 );
+
+        print "Month: " + `m`;
+        print "Minimum monthly payment: " + `p`;
         print "Remaining balance: " + `balance`;
         
     print "Total paid: " + `to`;
