@@ -13,19 +13,40 @@
 #   
 ##########################################################################
 
-def streak(str, h, k):
-    if (len(str) == 0):
-        if (len(h) > len(k)):
-            return h;
-        return k;
-    elif (len(h) == 0):
-        return streak(str[1:], str[0], k);
-    else:
-        if ( h[-1] <= str[0] ):
-            return streak(str[1:], h + str[0], k);
-        else:
-            if (len(h)>len(k)):
-                return streak(str[1:], str[0], h);
-            return streak(str[1:], str[0], k);
+# 
+# My original solution:
+# 
+# def streak(str, h, k):
+#     if (len(str) == 0):
+#         if (len(h) > len(k)):
+#             return h;
+#         return k;
+#     elif (len(h) == 0):
+#         return streak(str[1:], str[0], k);
+#     else:
+#         if ( h[-1] <= str[0] ):
+#             return streak(str[1:], h + str[0], k);
+#         else:
+#             if (len(h)>len(k)):
+#                 return streak(str[1:], str[0], h);
+#             return streak(str[1:], str[0], k);
+#             
+# print 'Longest substring in alphabetical order is: ' + streak(s, '', '');
+# 
+# New solution only needs to tracks indexes:
 
-print 'Longest substring in alphabetical order is: ' + streak(s, '', '');
+i = 0;
+
+while ( i < len( s ) ):
+
+    i += 1;
+
+    # Move on if the next character is not in order.
+    if ( s[i-1] > s[i] ) :
+        temp_start = i;
+    
+    if ( i - temp_start > end - start ):
+        start = temp_start;
+        end = i;
+                                            
+print 'Longest substring in alphabetical order is:', s[start:end+1];
